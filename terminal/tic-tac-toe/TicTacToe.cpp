@@ -34,28 +34,45 @@ bool validMove(char board[3][3], int row, int col) {
     return true;
 }
 
+bool gameWon(char board[3][3], int row, int col) {
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<3; j++) {
+            cout << "holy shit" << endl;
+        }
+    }
+}
+
 int main() {
     // Creating an empty Tic Tac Toe board
     char board[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
     std::cout << "bool value: " << isGameOn << endl;
     // Printing the Tic Tac Toe board
+    string whichPlayer = "first";
+    bool isGameFinished = false;
     while (isGameOn) {
         printBoard(board);
-        string whichPlayer = "first";
         int row, col;
         std::cout << "Enter the coordinates(row, col): ";
         cin >> row >> col;
+        cout << "debug line 48" << endl;
         if (validMove(board, row, col)) {
+            cout << "line 50: " << whichPlayer << endl;
             if (whichPlayer == "first") {
                 board[row-1][col-1] = 'X';
+                whichPlayer = "second";
+                cout << "whichPlayer first: " << whichPlayer << endl;
             } else if (whichPlayer == "second") {
+                cout << "whichPlayer line 55: " << whichPlayer << endl;
                 board[row-1][col-1] = 'O';
+                whichPlayer = "first";
+                cout << "whichPlayer second: " << whichPlayer << endl;
             }
         }
-       std::cout << "do you want to continue the game: " << endl;
+
+        std::cout << "do you want to continue the game: " << endl;
         string input;
         cin >> input;
-        if (input == "no") {
+        if (isGameFinished) {
             isGameOn = false;
             break;
         }
