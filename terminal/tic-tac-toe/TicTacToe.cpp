@@ -34,12 +34,34 @@ bool validMove(char board[3][3], int row, int col) {
     return true;
 }
 
-bool gameWon(char board[3][3], int row, int col) {
-    for (int i=0; i<3; i++) {
-        for (int j=0; j<3; j++) {
-            cout << "holy shit" << endl;
+bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
+    char toMatch;
+    if (whichPlayer == "first") {
+        toMatch = 'X';
+    }
+    else if (whichPlayer == "second") {
+        toMatch = 'O';
+    }
+    if (board[row-1][0] == toMatch && board[row-1][1] == toMatch && board[row-1][3] == toMatch) {
+        return true;
+    }
+    if (board[0][col-1] == toMatch && board[1][col-1] == toMatch && board[2][col-1] == toMatch) {
+        return true;
+    }
+    if (row-1 != 2 || col-1 != 2 || (row-1 == 2 && row-1 == 2)) {
+        if (row == 1 && col == 1) {
+            if (board[row-1][col-1] == toMatch && board[row][col] == toMatch && board[row+1][col+1] == toMatch) {
+                return true;
+            }
+        }
+        else if (row == 3 && col == 1) {
+            // TODO: Complete this 
+            if (board[row-1][col-1] == toMatch && board[row][col] == toMatch) {
+                std::cout << endl;            
+            }
         }
     }
+    return false;
 }
 
 int main() {
@@ -53,25 +75,25 @@ int main() {
         printBoard(board);
         int row, col;
         std::cout << "Enter the coordinates(row, col): ";
-        cin >> row >> col;
-        cout << "debug line 48" << endl;
+        std::cin >> row >> col;
+        std::cout << "debug line 48" << endl;
         if (validMove(board, row, col)) {
-            cout << "line 50: " << whichPlayer << endl;
+            std::cout << "line 50: " << whichPlayer << endl;
             if (whichPlayer == "first") {
                 board[row-1][col-1] = 'X';
                 whichPlayer = "second";
-                cout << "whichPlayer first: " << whichPlayer << endl;
+                std::cout << "whichPlayer first: " << whichPlayer << endl;
             } else if (whichPlayer == "second") {
-                cout << "whichPlayer line 55: " << whichPlayer << endl;
+                std::cout << "whichPlayer line 55: " << whichPlayer << endl;
                 board[row-1][col-1] = 'O';
                 whichPlayer = "first";
-                cout << "whichPlayer second: " << whichPlayer << endl;
+                std::cout << "whichPlayer second: " << whichPlayer << endl;
             }
         }
 
         std::cout << "do you want to continue the game: " << endl;
         string input;
-        cin >> input;
+        std::cin >> input;
         if (isGameFinished) {
             isGameOn = false;
             break;
