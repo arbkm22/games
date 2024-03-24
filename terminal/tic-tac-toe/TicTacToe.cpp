@@ -36,28 +36,45 @@ bool validMove(char board[3][3], int row, int col) {
 
 bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
     char toMatch;
+    row -= 1;
+    col -= 1;
     if (whichPlayer == "first") {
         toMatch = 'X';
     }
     else if (whichPlayer == "second") {
         toMatch = 'O';
     }
-    if (board[row-1][0] == toMatch && board[row-1][1] == toMatch && board[row-1][3] == toMatch) {
+    if (board[row][0] == toMatch && board[row][1] == toMatch && board[row][3] == toMatch) {
         return true;
     }
-    if (board[0][col-1] == toMatch && board[1][col-1] == toMatch && board[2][col-1] == toMatch) {
+    if (board[0][col] == toMatch && board[1][col] == toMatch && board[2][col] == toMatch) {
         return true;
     }
-    if (row-1 != 2 || col-1 != 2 || (row-1 == 2 && row-1 == 2)) {
+    if ((row != 1 || col != 1) || (row == 1 && col == 1)) {
         if (row == 1 && col == 1) {
             if (board[row-1][col-1] == toMatch && board[row][col] == toMatch && board[row+1][col+1] == toMatch) {
                 return true;
             }
         }
-        else if (row == 3 && col == 1) {
-            // TODO: Complete this 
-            if (board[row-1][col-1] == toMatch && board[row][col] == toMatch) {
-                std::cout << endl;            
+        else if (row == 0 && col == 0) {
+            if (board[row][col] == toMatch && board[row+1][col+1] == toMatch && board[row+2][col+2] == toMatch) {
+                return true;
+            }
+        }
+        // TODO: Complete this 
+        else if (row == 0 && col == 2) {
+            if (board[row][col] == toMatch && board[row+1][col-1] == toMatch && board[row+2][col-2]) {
+                return true;
+            }
+        }
+        else if (row == 2 && col == 0) {
+            if (board[row][col] == toMatch && board[row-1][col+1] == toMatch && board[row-2][col+2]) {
+                return true;
+            }
+        }
+        else if (row == 2 && col == 2) {
+            if (board[row][col] == toMatch && board[row-1][col-1] == toMatch && board[row-2][col-2]) {
+                return true;
             }
         }
     }
@@ -81,19 +98,24 @@ int main() {
             std::cout << "line 50: " << whichPlayer << endl;
             if (whichPlayer == "first") {
                 board[row-1][col-1] = 'X';
-                whichPlayer = "second";
+                // whichPlayer = "second";
                 std::cout << "whichPlayer first: " << whichPlayer << endl;
             } else if (whichPlayer == "second") {
                 std::cout << "whichPlayer line 55: " << whichPlayer << endl;
                 board[row-1][col-1] = 'O';
-                whichPlayer = "first";
+                // whichPlayer = "first";
                 std::cout << "whichPlayer second: " << whichPlayer << endl;
             }
         }
-
-        std::cout << "do you want to continue the game: " << endl;
-        string input;
-        std::cin >> input;
+        bool winner = gameWon(board, row, col, whichPlayer);
+        if (winner)
+            isGameFinished = true;
+         else {
+            if (whichPlayer == "first")
+                whichPlayer = "second";
+            else if (whichPlayer == "second") 
+                whichPlayer = "first";
+         } 
         if (isGameFinished) {
             isGameOn = false;
             break;
