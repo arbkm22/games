@@ -34,6 +34,7 @@ bool validMove(char board[3][3], int row, int col) {
     return true;
 }
 
+// logic for checking if the game is won or not
 bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
     char toMatch;
     row -= 1;
@@ -51,6 +52,7 @@ bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
         return true;
     }
     if ((row != 1 || col != 1) || (row == 1 && col == 1)) {
+        cout << "inside if where row | col = " << row << " | " << col << endl;
         if (row == 1 && col == 1) {
             if (board[row-1][col-1] == toMatch && board[row][col] == toMatch && board[row+1][col+1] == toMatch) {
                 return true;
@@ -81,10 +83,17 @@ bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
     return false;
 }
 
+void resetBoard(char board[3][3]) {
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<3; j++) {
+            board[i][j] = ' ';
+        }
+    }
+}
+
 int main() {
     // Creating an empty Tic Tac Toe board
     char board[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
-    std::cout << "bool value: " << isGameOn << endl;
     // Printing the Tic Tac Toe board
     string whichPlayer = "first";
     bool isGameFinished = false;
@@ -93,18 +102,11 @@ int main() {
         int row, col;
         std::cout << "Enter the coordinates(row, col): ";
         std::cin >> row >> col;
-        std::cout << "debug line 48" << endl;
         if (validMove(board, row, col)) {
-            std::cout << "line 50: " << whichPlayer << endl;
             if (whichPlayer == "first") {
                 board[row-1][col-1] = 'X';
-                // whichPlayer = "second";
-                std::cout << "whichPlayer first: " << whichPlayer << endl;
             } else if (whichPlayer == "second") {
-                std::cout << "whichPlayer line 55: " << whichPlayer << endl;
                 board[row-1][col-1] = 'O';
-                // whichPlayer = "first";
-                std::cout << "whichPlayer second: " << whichPlayer << endl;
             }
         }
         bool winner = gameWon(board, row, col, whichPlayer);
@@ -117,8 +119,22 @@ int main() {
                 whichPlayer = "first";
          } 
         if (isGameFinished) {
-            isGameOn = false;
-            break;
+            printBoard(board);
+            cout << "Do you want to play again: " << endl;
+            string answer;
+            cin >> answer;
+            if (answer == "yes") {
+                isGameOn = true;
+                resetBoard(board);
+            } 
+            else if (answer == "no") {
+                isGameOn = false;
+            }
+            else {
+                cout << "please answer in yes or no" << endl;
+            }
+            // isGameOn = false;
+            // break;
         }
     }
     std::cout << "Thanks for playing the game!" << endl;
