@@ -45,39 +45,44 @@ bool gameWon(char board[3][3], int row, int col, string whichPlayer) {
     else if (whichPlayer == "second") {
         toMatch = 'O';
     }
-    if (board[row][0] == toMatch && board[row][1] == toMatch && board[row][3] == toMatch) {
+
+    if (board[row][0] == board[row][1]) {
+        cout << "matching: " << toMatch << endl;
+    }
+    
+    if (board[row][0] == toMatch && board[row][1] == toMatch && board[row][2] == toMatch) {
         return true;
     }
     if (board[0][col] == toMatch && board[1][col] == toMatch && board[2][col] == toMatch) {
         return true;
     }
-    if ((row != 1 || col != 1) || (row == 1 && col == 1)) {
-        cout << "inside if where row | col = " << row << " | " << col << endl;
-        if (row == 1 && col == 1) {
-            if (board[row-1][col-1] == toMatch && board[row][col] == toMatch && board[row+1][col+1] == toMatch) {
-                return true;
-            }
+    
+    if (row == 1 && col == 1) {
+        if (board[row-1][col-1] == toMatch && board[row][col] == toMatch && board[row+1][col+1] == toMatch) {
+            return true;
         }
-        else if (row == 0 && col == 0) {
-            if (board[row][col] == toMatch && board[row+1][col+1] == toMatch && board[row+2][col+2] == toMatch) {
-                return true;
-            }
+        if (board[row-1][col+1] == toMatch && board[row][col] == toMatch && board[row+1][col-1] == toMatch) {
+            return true;
         }
-        // TODO: Complete this 
-        else if (row == 0 && col == 2) {
-            if (board[row][col] == toMatch && board[row+1][col-1] == toMatch && board[row+2][col-2]) {
-                return true;
-            }
+    }
+    else if (row == 0 && col == 0) {
+        if (board[row][col] == toMatch && board[row+1][col+1] == toMatch && board[row+2][col+2] == toMatch) {
+            return true;
         }
-        else if (row == 2 && col == 0) {
-            if (board[row][col] == toMatch && board[row-1][col+1] == toMatch && board[row-2][col+2]) {
-                return true;
-            }
+    }
+    else if (row == 0 && col == 2) {
+        if (board[row][col] == toMatch && board[row+1][col-1] == toMatch && board[row+2][col-2]) {
+            return true;
         }
-        else if (row == 2 && col == 2) {
-            if (board[row][col] == toMatch && board[row-1][col-1] == toMatch && board[row-2][col-2]) {
-                return true;
-            }
+    }
+    else if (row == 2 && col == 0) {
+        if (board[row][col] == toMatch && board[row-1][col+1] == toMatch && board[row-2][col+2]) {
+            return true;
+        }
+    }
+    else if (row == 2 && col == 2) {
+        if (board[row][col] == toMatch && board[row-1][col-1] == toMatch && board[row-2][col-2]) {
+            return true;
         }
     }
     return false;
@@ -102,7 +107,8 @@ int main() {
         int row, col;
         std::cout << "Enter the coordinates(row, col): ";
         std::cin >> row >> col;
-        if (validMove(board, row, col)) {
+        bool isValidMove = validMove(board, row, col);
+        if (isValidMove) {
             if (whichPlayer == "first") {
                 board[row-1][col-1] = 'X';
             } else if (whichPlayer == "second") {
@@ -113,10 +119,12 @@ int main() {
         if (winner)
             isGameFinished = true;
          else {
-            if (whichPlayer == "first")
-                whichPlayer = "second";
-            else if (whichPlayer == "second") 
-                whichPlayer = "first";
+            if (isValidMove) {
+                if (whichPlayer == "first")
+                    whichPlayer = "second";
+                else if (whichPlayer == "second") 
+                    whichPlayer = "first";  
+            }
          } 
         if (isGameFinished) {
             printBoard(board);
@@ -129,6 +137,7 @@ int main() {
             } 
             else if (answer == "no") {
                 isGameOn = false;
+                isGameFinished = false;
             }
             else {
                 cout << "please answer in yes or no" << endl;
