@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import xImage from '../assets/X.png';
+import oImage from '../assets/O.png';
 
 function Main() {
 
+    // * Variables
+    const [turn, setTurn] = useState('X');
+
     const handleClick = (e) => {
-        console.log('cell clicked');
-        
+        if (turn === 'X')
+            setTurn('O'); 
+        else 
+            setTurn('X');
+        console.log('turn: ', turn);
     }
-    
+
+    const cell = ({ num }) => {
+        // const celValue = 
+        const cellClassName = () => {
+            if (turn === 'X')
+                return 'cell cell-x';
+            else 
+                return 'cell cell-o';
+        }
+
+        const cellStyle = {
+            backgroundImage: `url()`
+        }
+        return (
+            <div></div>
+        )
+    }
+
     return (
         <div className='body'>
             <div className='board'>
