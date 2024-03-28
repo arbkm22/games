@@ -15,14 +15,17 @@
 .cell {
   height: 200px;
   width: 200px;
-  background-color: white;
+  background-color: #22242A;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 48px;
   font-weight: bold;
   cursor: pointer;
-  border: 2px solid #22242A;
+  border: 0 solid #1B1E22;
+  border-top: 25px solid #1B1E22;
+  border-left: 25px solid #1B1E22;
+
 }
 
 .row {
@@ -31,8 +34,17 @@
 
 .board {
   margin: 0 auto;
+  padding-top: 8vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.last-cell {
+  border-right: 25px solid #1B1E22;
+}
+
+.last-row {
+  border-bottom: 25px solid #1B1E22;
 }

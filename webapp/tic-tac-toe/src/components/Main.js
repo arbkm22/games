@@ -13,17 +13,17 @@ function Main() {
                 <div className='row'>
                     <div className='cell' onClick={handleClick}></div>
                     <div className='cell' onClick={handleClick}></div>
-                    <div className='cell' onClick={handleClick}></div>
+                    <div className='cell last-cell' onClick={handleClick}></div>
                 </div>
                 <div className='row'>
                     <div className='cell' onClick={handleClick}></div>
                     <div className='cell' onClick={handleClick}></div>
-                    <div className='cell' onClick={handleClick}></div>
+                    <div className='cell last-cell' onClick={handleClick}></div>
                 </div>
-                <div className='row'>
+                <div className='row last-row'>
                     <div className='cell' onClick={handleClick}></div>
                     <div className='cell' onClick={handleClick}></div>
-                    <div className='cell' onClick={handleClick}></div>
+                    <div className='cell last-cell' onClick={handleClick}></div>
                 </div>
             </div>
         </div>
