@@ -15,7 +15,7 @@ function Main() {
         console.log('turn: ', turn);
     }
 
-    const cell = ({ num }) => {
+    const Cell = ({ num }) => {
         // const celValue = 
         const cellClassName = () => {
             if (turn === 'X')
@@ -25,10 +25,11 @@ function Main() {
         }
 
         const cellStyle = {
-            backgroundImage: `url()`
+            backgroundImage: `url($(turn === 'X' ? xImage : oImage))`,
+            backgroundSize: 'cover'
         }
         return (
-            <div></div>
+            <div className={cellClassName()} style={cellStyle}></div>
         )
     }
 
@@ -36,7 +37,8 @@ function Main() {
         <div className='body'>
             <div className='board'>
                 <div className='row'>
-                    <div className='cell' onClick={handleClick}></div>
+                    <Cell num={0} />
+                    {/* <div className='cell' onClick={handleClick}></div> */}
                     <div className='cell' onClick={handleClick}></div>
                     <div className='cell last-cell' onClick={handleClick}></div>
                 </div>
