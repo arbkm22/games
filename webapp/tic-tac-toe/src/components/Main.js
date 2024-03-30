@@ -1,56 +1,50 @@
 import React, { useState } from 'react';
 import xImage from '../assets/X.png';
 import oImage from '../assets/O.png';
+import Cell from './Cell';
 
 function Main() {
 
     // * Variables
     const [turn, setTurn] = useState('X');
+    const [cells, setCells] = useState(Array(9).fill(""));
+    const [winner, setWinner] = useState();
+    const [isDraw, setIsDraw] = useState(false);
 
-    const handleClick = (e) => {
-        if (turn === 'X')
-            setTurn('O'); 
-        else 
-            setTurn('X');
-        console.log('turn: ', turn);
+    const handleClick = (num) => {
+        let arr = [...cells];
+        if (turn === 'X') {
+            arr[num] = "X";
+            setTurn("O"); 
+        }
+        else {
+            arr[num] = "O"
+            setTurn("O");
+        }
+        setCells(arr);
     }
 
-    const Cell = ({ num }) => {
-        // const celValue = 
-        const cellClassName = () => {
-            if (turn === 'X')
-                return 'cell cell-x';
-            else 
-                return 'cell cell-o';
-        }
-
-        const cellStyle = {
-            backgroundImage: `url($(turn === 'X' ? xImage : oImage))`,
-            backgroundSize: 'cover'
-        }
-        return (
-            <div className={cellClassName()} style={cellStyle}></div>
-        )
+    const handleTurnChange = () => {
+        setTurn(turn === "X" ? "O" : "X");
     }
 
     return (
         <div className='body'>
             <div className='board'>
                 <div className='row'>
-                    <Cell num={0} />
-                    {/* <div className='cell' onClick={handleClick}></div> */}
-                    <div className='cell' onClick={handleClick}></div>
-                    <div className='cell last-cell' onClick={handleClick}></div>
+                    <Cell num={1} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={2} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={3} turn={turn} onTurnChange={handleTurnChange} />
                 </div>
                 <div className='row'>
-                    <div className='cell' onClick={handleClick}></div>
-                    <div className='cell' onClick={handleClick}></div>
-                    <div className='cell last-cell' onClick={handleClick}></div>
+                    <Cell num={4} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={5} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={6} turn={turn} onTurnChange={handleTurnChange} />
                 </div>
                 <div className='row last-row'>
-                    <div className='cell' onClick={handleClick}></div>
-                    <div className='cell' onClick={handleClick}></div>
-                    <div className='cell last-cell' onClick={handleClick}></div>
+                    <Cell num={7} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={8} turn={turn} onTurnChange={handleTurnChange} />
+                    <Cell num={9} turn={turn} onTurnChange={handleTurnChange} />
                 </div>
             </div>
         </div>
