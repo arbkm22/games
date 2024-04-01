@@ -5,20 +5,23 @@ function Cell(props) {
     const [isClicked, setIsClicked] = useState(false);
 
     const handleClick = () => {
-        console.log(`Cell #${props.num} clicked`);
+        if (props.winner || isClicked) {
+            console.log('winner in cell: ', props.winner);
+            return;
+        }
+
         props.onCellClick(props.num);
+
         if (!isClicked) {
             setIsClicked(true);
-        }
-        else if (isClicked) {
-            // TODO: handle when cell is already filled/clicked
+        } else if (isClicked) {
             console.log('cell is already populated');
         }
     }
 
     const cellClassName = () => {
         let text;
-        if (props.num === 3 || props.num === 6 || props.num === 9) {
+        if (props.num === 2 || props.num === 5 || props.num === 8) {
             text = 'last-cell'
         }
         if (isClicked) {
@@ -26,7 +29,7 @@ function Cell(props) {
                 return `cell cell-x ${text}`;
             else 
                 return `cell cell-o ${text}`;
-        }
+            }
         else {
             return `cell ${text}`;
         }
