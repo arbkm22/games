@@ -5,17 +5,10 @@ function Cell(props) {
     const [isClicked, setIsClicked] = useState(false);
 
     const handleClick = () => {
-        if (props.winner || isClicked) {
-            console.log('winner in cell: ', props.winner);
-            return;
-        }
-
+        if (props.hasWon || isClicked) return;
         props.onCellClick(props.num);
-
         if (!isClicked) {
             setIsClicked(true);
-        } else if (isClicked) {
-            console.log('cell is already populated');
         }
     }
 

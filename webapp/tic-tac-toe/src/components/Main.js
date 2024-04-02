@@ -6,6 +6,7 @@ function Main() {
     const [turn, setTurn] = useState("X");
     const [cells, setCells] = useState(Array(9).fill(""));
     const [winner, setWinner] = useState();
+    const [isDraw, setIsDraw] = useState(false);
 
     const checkWinner = (arr) => {
         let combos = {
@@ -43,20 +44,23 @@ function Main() {
 
     const handleCellClick = (num) => {
         if (winner || cells[num] !== "") {
-            console.log('game has finished: ', winner);
+            alert(`Winner is ${winner}`);
             return;
         }
 
         const arr = [...cells];
         arr[num] = arr[num] ? null : turn;
-
-        if (!winner)
-            setCells(arr);
-
+        setCells(arr);
         checkWinner(arr);   
-
+        if (winner) {
+            alert(`Winner is ${winner}`);
+            return;
+        }
         if (!winner) 
             handleTurnChange();
+        if (!arr.includes("") && !winner) {
+            setIsDraw(true);
+        }
     }
 
     const handleTurnChange = () => {
@@ -66,20 +70,23 @@ function Main() {
     return (
         <div className='body'>
             <div className='board'>
+                {/* <div className={`winner ${winner || isDraw ? "show" : ""}`}>
+                    {winner ? `Winner is ${winner}` : isDraw ? "Its a draw" : ""}
+                </div> */}
                 <div className='row'>
-                    <Cell num={0} value={cells[0]} onCellClick={handleCellClick} />
-                    <Cell num={1} value={cells[1]} onCellClick={handleCellClick} />
-                    <Cell num={2} value={cells[2]} onCellClick={handleCellClick} />
+                    <Cell num={0} value={cells[0]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={1} value={cells[1]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={2} value={cells[2]} hasWon={winner} onCellClick={handleCellClick} />
                 </div>
                 <div className='row'>
-                    <Cell num={3} value={cells[3]} onCellClick={handleCellClick} />
-                    <Cell num={4} value={cells[4]} onCellClick={handleCellClick} />
-                    <Cell num={5} value={cells[5]} onCellClick={handleCellClick} />
+                    <Cell num={3} value={cells[3]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={4} value={cells[4]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={5} value={cells[5]} hasWon={winner} onCellClick={handleCellClick} />
                 </div>
                 <div className='row last-row'>
-                    <Cell num={6} value={cells[6]} onCellClick={handleCellClick} />
-                    <Cell num={7} value={cells[7]} onCellClick={handleCellClick} />
-                    <Cell num={8} value={cells[8]} onCellClick={handleCellClick} />
+                    <Cell num={6} value={cells[6]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={7} value={cells[7]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell num={8} value={cells[8]} hasWon={winner} onCellClick={handleCellClick} />
                 </div>
             </div>
         </div>

@@ -62,3 +62,15 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.winner {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 48px;
+  display: none;
+  color: white;
+}
+
+.winner.show {
+  display: block;
+}
