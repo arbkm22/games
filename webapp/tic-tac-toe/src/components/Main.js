@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Cell from './Cell';
 
 function Main() {
@@ -43,19 +43,12 @@ function Main() {
     }
 
     const handleCellClick = (num) => {
-        if (winner || cells[num] !== "") {
-            alert(`Winner is ${winner}`);
-            return;
-        }
+        if (winner || cells[num] !== "") return;
 
         const arr = [...cells];
         arr[num] = arr[num] ? null : turn;
         setCells(arr);
-        checkWinner(arr);   
-        if (winner) {
-            alert(`Winner is ${winner}`);
-            return;
-        }
+        checkWinner(arr);
         if (!winner) 
             handleTurnChange();
         if (!arr.includes("") && !winner) {
@@ -69,10 +62,10 @@ function Main() {
 
     return (
         <div className='body'>
+            <div className={`winner ${winner || isDraw ? "show" : ""}`}>
+                {winner ? `Winner is ${winner}` : isDraw ? "Its a draw" : ""}
+            </div> 
             <div className='board'>
-                {/* <div className={`winner ${winner || isDraw ? "show" : ""}`}>
-                    {winner ? `Winner is ${winner}` : isDraw ? "Its a draw" : ""}
-                </div> */}
                 <div className='row'>
                     <Cell num={0} value={cells[0]} hasWon={winner} onCellClick={handleCellClick} />
                     <Cell num={1} value={cells[1]} hasWon={winner} onCellClick={handleCellClick} />
