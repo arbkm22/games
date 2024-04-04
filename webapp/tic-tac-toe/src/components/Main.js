@@ -7,6 +7,7 @@ function Main() {
     const [cells, setCells] = useState(Array(9).fill(""));
     const [winner, setWinner] = useState();
     const [isDraw, setIsDraw] = useState(false);
+    const [reset, setReset] = useState(false);
 
     const checkWinner = (arr) => {
         let combos = {
@@ -60,6 +61,14 @@ function Main() {
         setTurn(turn === "X" ? "O" : "X");
     }
 
+    const resetGame = () => {
+        setCells(Array(9).fill(""));
+        setTurn("X");
+        setWinner(null);
+        setIsDraw(false);
+        setReset(true);
+    }
+
     return (
         <div className='body'>
             <div className={`winner ${winner || isDraw ? "show" : ""}`}>
@@ -67,20 +76,68 @@ function Main() {
             </div> 
             <div className='board'>
                 <div className='row'>
-                    <Cell num={0} value={cells[0]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={1} value={cells[1]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={2} value={cells[2]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell 
+                        num={0} 
+                        value={cells[0]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick} 
+                        reset={reset} />
+                    <Cell 
+                        num={1} 
+                        value={cells[1]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
+                    <Cell 
+                        num={2} 
+                        value={cells[2]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick} 
+                        reset={reset} />
                 </div>
                 <div className='row'>
-                    <Cell num={3} value={cells[3]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={4} value={cells[4]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={5} value={cells[5]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell 
+                        num={3} 
+                        value={cells[3]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
+                    <Cell 
+                        num={4} 
+                        value={cells[4]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
+                    <Cell 
+                        num={5} 
+                        value={cells[5]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
                 </div>
                 <div className='row last-row'>
-                    <Cell num={6} value={cells[6]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={7} value={cells[7]} hasWon={winner} onCellClick={handleCellClick} />
-                    <Cell num={8} value={cells[8]} hasWon={winner} onCellClick={handleCellClick} />
+                    <Cell 
+                        num={6} 
+                        value={cells[6]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
+                    <Cell 
+                        num={7} 
+                        value={cells[7]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
+                    <Cell 
+                        num={8} 
+                        value={cells[8]} 
+                        hasWon={winner} 
+                        onCellClick={handleCellClick}
+                        reset={reset} />
                 </div>
+            </div>
+            <div className="resetButton"> 
+                <button onClick={resetGame}>Reset Game</button>
             </div>
         </div>
     );
