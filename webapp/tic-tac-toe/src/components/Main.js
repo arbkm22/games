@@ -9,6 +9,9 @@ function Main() {
     const [isDraw, setIsDraw] = useState(false);
     const [reset, setReset] = useState(false);
 
+    // TODO: after resetting, the game doesn't continue
+    // TODO: beautify the reset button
+
     const checkWinner = (arr) => {
         let combos = {
             accros: [
@@ -44,6 +47,7 @@ function Main() {
     }
 
     const handleCellClick = (num) => {
+        console.log('handleCellClick');
         if (winner || cells[num] !== "") return;
 
         const arr = [...cells];
@@ -69,6 +73,10 @@ function Main() {
         setReset(true);
     }
 
+    const setResetBack = (reset) => {
+        setReset(reset ? false : true);
+    }
+
     return (
         <div className='body'>
             <div className={`winner ${winner || isDraw ? "show" : ""}`}>
@@ -81,19 +89,22 @@ function Main() {
                         value={cells[0]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick} 
-                        reset={reset} />
+                        reset={reset}
+                        onReset={setResetBack} />
                     <Cell 
                         num={1} 
                         value={cells[1]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset} 
+                        onReset={setResetBack}/>
                     <Cell 
                         num={2} 
                         value={cells[2]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick} 
-                        reset={reset} />
+                        reset={reset} 
+                        onReset={setResetBack} />
                 </div>
                 <div className='row'>
                     <Cell 
@@ -101,19 +112,22 @@ function Main() {
                         value={cells[3]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset} 
+                        onReset={setResetBack} />
                     <Cell 
                         num={4} 
                         value={cells[4]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset} 
+                        onReset={setResetBack} />
                     <Cell 
                         num={5} 
                         value={cells[5]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset}
+                        onReset={setResetBack} />
                 </div>
                 <div className='row last-row'>
                     <Cell 
@@ -121,19 +135,22 @@ function Main() {
                         value={cells[6]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset}
+                        onReset={setResetBack} />
                     <Cell 
                         num={7} 
                         value={cells[7]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset}
+                        onReset={setResetBack} />
                     <Cell 
                         num={8} 
                         value={cells[8]} 
                         hasWon={winner} 
                         onCellClick={handleCellClick}
-                        reset={reset} />
+                        reset={reset}
+                        onReset={setResetBack} />
                 </div>
             </div>
             <div className="resetButton"> 

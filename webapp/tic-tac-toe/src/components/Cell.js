@@ -5,6 +5,11 @@ function Cell(props) {
     const [isClicked, setIsClicked] = useState(false);
 
     const handleClick = () => {
+        console.log('handleClick');
+        if (props.reset) {
+            setIsClicked(false);
+            props.onReset(props.reset);
+        }
         if (props.hasWon || isClicked) return;
         props.onCellClick(props.num);
         if (!isClicked) {
