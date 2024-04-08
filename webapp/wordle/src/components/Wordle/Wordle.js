@@ -1,11 +1,24 @@
 import React from 'react';
 import './Wordle.css';
+import Keyboard from '../Keyboard/Keyboard.js';
 
 function Wordle() {
+    const rows = 5;
+    const cols = 6;
     return (
-        <div className='wordle'>
-            Body
-        </div>
+        <>
+            <div className="wordle">
+                {Array.from({ length: rows }, (_, rowIndex) => (
+                    <div key={rowIndex} className="row">
+                        {Array.from({ length: cols }, (_, colIndex) => (
+                            <div key={colIndex} className="box"></div>
+                        ))}
+                    </div>
+                ))}
+            </div>
+            <Keyboard />
+        </>
+        
     )
 }
 

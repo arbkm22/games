@@ -5,3 +5,15 @@
   align-items: center;
   font-size: 4rem;
 }
+
+.box {
+  display: flex;
+  height: 60px;
+  width: 60px;
+  border: 2px solid white;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
