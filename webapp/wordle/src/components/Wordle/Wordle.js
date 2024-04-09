@@ -7,21 +7,17 @@ function Wordle() {
     const cols = 6;
 
     const [inputValue, setInputValue] = useState("");
+    const [whichKey, setWhichKey] = useState("");
 
     const handleKeyDown = (event) => {
-        if (event.key === "Backspace") {
-            console.log('backspace was pressed');
-        }
-        console.log('inputValue: ', inputValue);
-        console.log('event val: ', event.target.value);
+        setWhichKey(event.key);
     }
 
     const handleChange = (event) => {
-        // if (inputValue.length > 1) return;
-        if (event.key === "Backspace") {
-            console.log('backspace was pressed');
-        }
-        setInputValue(event.target.value);
+        if (inputValue.length >= 1 && whichKey !== "Backspace")
+            return;
+        else 
+            setInputValue(event.target.value);
     }
 
     return (
