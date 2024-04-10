@@ -15,6 +15,10 @@ function Cells(props) {
         if (inputValue.length >= 1 && whichKey !== "Backspace")
             return;
         setInputValue(event.target.value);
+        if (event.target.value.length === 0 && whichKey === "Backspace" && props.row !== 0) {
+            document.getElementById(`${props.row - 1}-${props.col}`).focus();
+        }
+
         console.log(`Col: ${props.col} | Row: ${props.row}`);
         if (event.target.value.length === 1) {
             if (props.row < 4)
