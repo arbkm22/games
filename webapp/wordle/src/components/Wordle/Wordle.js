@@ -13,7 +13,7 @@ function Wordle() {
     }
 
     const [curPos, setCurPos] = useState(pos);
-
+    const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState("");
 
     const handleWordSelection = () => {
@@ -22,6 +22,16 @@ function Wordle() {
 
     const handleChange = (data) => {
         console.log(`data: ${data.row} | ${data.col}`);
+        let currentInput = userInput + data.value;
+        setUserInput(currentInput);
+        console.log('userInput: ', userInput);
+    }
+
+    const handleWord = (data) => {
+        let answer;
+        for (let i=0; i<5; i++) {
+            answer += '';
+        }
     }
 
     return (
@@ -31,7 +41,7 @@ function Wordle() {
                     <div key={rowIndex} className="row">
                         {Array.from({ length: cols }, (_, colIndex) => (
                             <div key={colIndex} className="box">
-                                <Cells col={colIndex} row={rowIndex} onChange={handleChange} />
+                                <Cells col={colIndex} row={rowIndex} onChange={handleChange} onWord={handleWord} />
                             </div>
                         ))}
                     </div>
