@@ -21,17 +21,23 @@ function Wordle() {
     }
 
     const handleChange = (data) => {
-        console.log(`data: ${data.row} | ${data.col}`);
-        let currentInput = userInput + data.value;
+        // console.log('handleChange wordle: ', data);
+        let currentInput = userInput;
+        if (data.key === "Backspace") {
+            let words = currentInput.split("");
+            words.pop();
+            currentInput = words.join("");
+        }
+        else {
+            currentInput += data.value;
+        }
+        // console.log('currentInput: ', currentInput);
         setUserInput(currentInput);
-        console.log('userInput: ', userInput);
+        // console.log('userInput: ', userInput);
     }
 
-    const handleWord = (data) => {
-        let answer;
-        for (let i=0; i<5; i++) {
-            answer += '';
-        }
+    const handleWord = () => {
+        console.log('handleWord: ', userInput);
     }
 
     return (
@@ -41,7 +47,12 @@ function Wordle() {
                     <div key={rowIndex} className="row">
                         {Array.from({ length: cols }, (_, colIndex) => (
                             <div key={colIndex} className="box">
-                                <Cells col={colIndex} row={rowIndex} onChange={handleChange} onWord={handleWord} />
+                                <Cells 
+                                    col={colIndex} 
+                                    row={rowIndex} 
+                                    onChange={handleChange} 
+                                    onWord={handleWord} 
+                                />
                             </div>
                         ))}
                     </div>
