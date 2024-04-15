@@ -16,12 +16,7 @@ function Wordle() {
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState("");
 
-    const handleWordSelection = () => {
-        console.log(word);
-    }
-
     const handleChange = (data) => {
-        // console.log('handleChange wordle: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let words = currentInput.split("");
@@ -31,9 +26,7 @@ function Wordle() {
         else {
             currentInput += data.value;
         }
-        // console.log('currentInput: ', currentInput);
         setUserInput(currentInput);
-        // console.log('userInput: ', userInput);
     }
 
     const handleWord = () => {
