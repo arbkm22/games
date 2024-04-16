@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Wordle.css';
 import Keyboard from '../Keyboard/Keyboard.js';
 import Cells from '../Cells/Cells.js';
+import words from '../Words/Words.json';
 
 function Wordle() {
     const rows = 5;
@@ -15,6 +16,12 @@ function Wordle() {
     const [curPos, setCurPos] = useState(pos);
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState("");
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const getNewWord = () => {
+        const word = words[currentIndex];
+        console.log('word: ', word);
+    }
 
     const handleChange = (data) => {
         let currentInput = userInput;
@@ -30,6 +37,7 @@ function Wordle() {
     }
 
     const handleWord = () => {
+        getNewWord();
         console.log('handleWord: ', userInput);
     }
 
