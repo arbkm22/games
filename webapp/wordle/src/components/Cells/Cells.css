@@ -11,4 +11,8 @@
   border: none;
   font-size: 40px;
   text-align: center;
+  background-color: #121213;
+  color: white;
+  text-transform: capitalize;
+  font-family: 'Roboto Slab', serif;
 }

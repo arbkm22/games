@@ -85,6 +85,7 @@ function Cells(props) {
                 value={currentCellValue} 
                 onChange={handleChange}  
                 onKeyDown={handleKeyDown} 
+                autoComplete="off"
             />
         </div>
     )
