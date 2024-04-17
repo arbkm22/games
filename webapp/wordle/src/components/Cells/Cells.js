@@ -78,7 +78,7 @@ function Cells(props) {
     return (
         <div className="cell-container">
             <input 
-                className="cells" 
+                className={`cells cells-${props.color}`}
                 id={`${props.row}-${props.col}`} 
                 ref={inputRef} 
                 type="text" 

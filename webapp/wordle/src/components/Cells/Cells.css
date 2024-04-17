@@ -16,3 +16,15 @@
   text-transform: capitalize;
   font-family: 'Roboto Slab', serif;
 }
+
+.cells-green {
+  background-color: #538D4E;
+}
+
+.cells-yellow {
+  background-color: #B59F3B;
+}
+
+.cells-gray {
+  background-color: #3A3A3C;
+}

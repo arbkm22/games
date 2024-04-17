@@ -17,6 +17,7 @@ function Wordle() {
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState(words[0].toUpperCase());
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [result, setResult] = useState(Array(5).fill(""));
 
     const getNewWord = () => {
         const word = words[currentIndex];
@@ -46,6 +47,20 @@ function Wordle() {
         else {
             console.log('word did not matched');
         }
+        let arr = Array(5).fill("");
+        for (let i=0; i<5; i++) {
+            if (word[i] === userInput[i]) {
+                arr[i] = "green";
+            }
+            if (word.includes(userInput[i]) && word[i] !== userInput[i]) {
+                arr[i] = "yellow";
+            }
+            if (!word.includes(userInput[i])) {
+                arr[i] = "gray";
+            }
+        }
+        console.log('arr: ', arr);
+        setResult(arr);
         setUserInput("");
     }
 
@@ -61,6 +76,7 @@ function Wordle() {
                                     row={rowIndex} 
                                     onChange={handleChange} 
                                     onWord={handleWord} 
+                                    color={result[colIndex]}
                                 />
                             </div>
                         ))}
