@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './Cells.css';
 
 function Cells(props) {
@@ -6,7 +6,9 @@ function Cells(props) {
     // TODO: write comments for me ffs
 
     const [currentCellValue, setCurrentCellValue] = useState("");
+    const [cellColor, setCellColor] = useState("")
     const [whichKey, setWhichKey] = useState("");
+    const [currentCellColor, setCurrentCellColor] = useState("");
     const inputRef = useRef(null);
 
     const handleKeyDown = (event) => {
@@ -22,6 +24,14 @@ function Cells(props) {
             moveToNextCol(props.col);
         }
     }
+    
+    useEffect(() => {
+        console.log(`props: ${props.row} | ${props.col}`);
+        console.log(`currentRow: ${props.currentRow}`);
+        if (props.col === props.currentCol) {
+            setCellColor(props.color);
+        }
+    });
 
     const handleWord = () => {
         
@@ -35,6 +45,7 @@ function Cells(props) {
 
     const handleChange = (event) => {
         console.log('whichKey: ', whichKey);
+        console.log('props: ', props);
         // if (props.row)
         // console.log('handleChange Cell: ', event.target.value);
         // console.log(`row: ${props.row} | col: ${props.col}`);
@@ -75,16 +86,23 @@ function Cells(props) {
         props.onChange(data);
     }
 
+    const checkColor = () => {
+        // if (props.row === currentRow && props.col === currentCol) {
+        //     setCurrentCellColor(props.color);
+        // }
+    }
+
     return (
         <div className="cell-container">
             <input 
-                className="cells" 
+                className={`cells cells-${cellColor}`}
                 id={`${props.row}-${props.col}`} 
                 ref={inputRef} 
                 type="text" 
                 value={currentCellValue} 
                 onChange={handleChange}  
                 onKeyDown={handleKeyDown} 
+                autoComplete="off"
             />
         </div>
     )

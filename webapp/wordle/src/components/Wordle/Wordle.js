@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Wordle.css';
 import Keyboard from '../Keyboard/Keyboard.js';
 import Cells from '../Cells/Cells.js';
+import words from '../Words/Words.json';
 
 function Wordle() {
     const rows = 5;
@@ -14,23 +15,54 @@ function Wordle() {
 
     const [curPos, setCurPos] = useState(pos);
     const [userInput, setUserInput] = useState("");
-    const [word, setWord] = useState("");
+    const [word, setWord] = useState(words[0].toUpperCase());
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [result, setResult] = useState(Array(5).fill(""));
+    const [currentCol, setCurrentCol] = useState(0);
+
+    const getNewWord = () => {
+        const word = words[currentIndex];
+        setCurrentIndex(currentIndex + 1);
+        console.log('word: ', word);
+        return word;
+    }
 
     const handleChange = (data) => {
+        console.log('data in handleChnage: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
-            let words = currentInput.split("");
-            words.pop();
-            currentInput = words.join("");
+            let userInput = currentInput.split("");
+            userInput.pop();
+            currentInput = userInput.join("");
         }
         else {
             currentInput += data.value;
         }
-        setUserInput(currentInput);
+        setUserInput(currentInput.toUpperCase());
     }
 
     const handleWord = () => {
-        console.log('handleWord: ', userInput);
+        console.log(`word: ${word} | userInput: ${userInput}`);
+        if (word === userInput) {
+            console.log('word matched');
+        }
+        else {
+            console.log('word did not matched');
+        }
+        let arr = Array(5).fill("");
+        for (let i=0; i<5; i++) {
+            if (word[i] === userInput[i]) {
+                arr[i] = "green";
+            }
+            if (word.includes(userInput[i]) && word[i] !== userInput[i]) {
+                arr[i] = "yellow";
+            }
+            if (!word.includes(userInput[i])) {
+                arr[i] = "gray";
+            }       
+        }
+        setResult(arr);
+        setUserInput("");
     }
 
     return (
@@ -45,12 +77,15 @@ function Wordle() {
                                     row={rowIndex} 
                                     onChange={handleChange} 
                                     onWord={handleWord} 
+                                    color={result[colIndex]}
+                                    currentCol={currentCol}
                                 />
                             </div>
                         ))}
                     </div>
                 ))}
             </div>
+            
             <Keyboard />
         </>
     )
