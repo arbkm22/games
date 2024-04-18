@@ -18,6 +18,7 @@ function Wordle() {
     const [word, setWord] = useState(words[0].toUpperCase());
     const [currentIndex, setCurrentIndex] = useState(0);
     const [result, setResult] = useState(Array(5).fill(""));
+    const [currentCol, setCurrentCol] = useState(0);
 
     const getNewWord = () => {
         const word = words[currentIndex];
@@ -27,6 +28,7 @@ function Wordle() {
     }
 
     const handleChange = (data) => {
+        console.log('data in handleChnage: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let userInput = currentInput.split("");
@@ -57,9 +59,8 @@ function Wordle() {
             }
             if (!word.includes(userInput[i])) {
                 arr[i] = "gray";
-            }
+            }       
         }
-        console.log('arr: ', arr);
         setResult(arr);
         setUserInput("");
     }
@@ -77,12 +78,14 @@ function Wordle() {
                                     onChange={handleChange} 
                                     onWord={handleWord} 
                                     color={result[colIndex]}
+                                    currentCol={currentCol}
                                 />
                             </div>
                         ))}
                     </div>
                 ))}
             </div>
+            
             <Keyboard />
         </>
     )
