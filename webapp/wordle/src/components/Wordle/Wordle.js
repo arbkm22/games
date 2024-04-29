@@ -17,7 +17,7 @@ function Wordle() {
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState(words[0].toUpperCase());
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [result, setResult] = useState(Array(5).fill(""));
+    const [result, setResult] = useState(Array(6).fill().map(() => Array(6).fill([])));
     const [currentCol, setCurrentCol] = useState(0);
 
     const getNewWord = () => {
@@ -28,7 +28,7 @@ function Wordle() {
     }
 
     const handleChange = (data) => {
-        console.log('data in handleChnage: ', data);
+        // console.log('data in handleChnage: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let userInput = currentInput.split("");
@@ -41,8 +41,10 @@ function Wordle() {
         setUserInput(currentInput.toUpperCase());
     }
 
-    const handleWord = () => {
-        console.log(`word: ${word} | userInput: ${userInput}`);
+    const handleWord = (row, col) => {
+        // console.log(`word: ${word} | userInput: ${userInput}`);
+        console.log('result: ', result);
+        console.log(`row: ${row} | col: ${col}`);
         if (word === userInput) {
             console.log('word matched');
         }
@@ -50,6 +52,9 @@ function Wordle() {
             console.log('word did not matched');
         }
         let arr = Array(5).fill("");
+        // let matrix = [...result];
+        // matrix[0][1] = "H";
+        console.log(arr);
         for (let i=0; i<5; i++) {
             if (word[i] === userInput[i]) {
                 arr[i] = "green";
@@ -61,7 +66,17 @@ function Wordle() {
                 arr[i] = "gray";
             }       
         }
-        setResult(arr);
+        // console.log('matrix: ', matrix);
+        let newRes = result.map(row => [...row]);
+        newRes[col] = arr;
+        console.log('newRes: ', newRes);
+
+        try {
+            setResult(newRes);
+        } catch (e) {
+            console.log('e: ', e);
+        }
+        // setResult(matrix);
         setUserInput("");
     }
 
