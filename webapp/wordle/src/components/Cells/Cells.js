@@ -20,14 +20,14 @@ function Cells(props) {
             event.key === "Enter" &&  
             (props.row === 4)
         ) {
-            props.onWord();
+            props.onWord(props.row, props.col);
             moveToNextCol(props.col);
         }
     }
     
     useEffect(() => {
-        console.log(`props: ${props.row} | ${props.col}`);
-        console.log(`currentRow: ${props.currentRow}`);
+        // console.log(`props: ${props.row} | ${props.col}`);
+        // console.log(`currentRow: ${props.currentRow}`);
         if (props.col === props.currentCol) {
             setCellColor(props.color);
         }
@@ -44,8 +44,8 @@ function Cells(props) {
     }
 
     const handleChange = (event) => {
-        console.log('whichKey: ', whichKey);
-        console.log('props: ', props);
+        // console.log('whichKey: ', whichKey);
+        // console.log('props: ', props);
         // if (props.row)
         // console.log('handleChange Cell: ', event.target.value);
         // console.log(`row: ${props.row} | col: ${props.col}`);
@@ -76,9 +76,9 @@ function Cells(props) {
             document.getElementById(`${props.row - 1}-${props.col}`).focus();
         }
         if (event.target.value.length === 1) {
-            console.log('props.row: ', props.row);
+            // console.log('props.row: ', props.row);
             if (props.row < 4) {
-                console.log('props.row: ', props.row);
+                // console.log('props.row: ', props.row);
                 document.getElementById(`${props.row + 1}-${props.col}`).focus();
             }
         }
