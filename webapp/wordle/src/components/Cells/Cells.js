@@ -28,9 +28,10 @@ function Cells(props) {
     useEffect(() => {
         // console.log(`props: ${props.row} | ${props.col}`);
         // console.log(`currentRow: ${props.currentRow}`);
-        if (props.col === props.currentCol) {
-            setCellColor(props.color);
-        }
+        // if (props.col === props.currentCol) {
+        //     setCellColor(props.color);
+        // }
+        setCellColor(props.color);
     });
 
     const handleWord = () => {
