@@ -69,13 +69,9 @@ function Wordle() {
         // console.log('matrix: ', matrix);
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
-        console.log('newRes: ', newRes);
-
-        try {
-            setResult(newRes);
-        } catch (e) {
-            console.log('e: ', e);
-        }
+        
+        setResult(newRes);
+        // console.log('newRes Val: ', newRes[col][row]);
         // setResult(matrix);
         setUserInput("");
     }
@@ -92,7 +88,7 @@ function Wordle() {
                                     row={rowIndex} 
                                     onChange={handleChange} 
                                     onWord={handleWord} 
-                                    color={result[colIndex]}
+                                    color={result[colIndex][rowIndex]}
                                     currentCol={currentCol}
                                 />
                             </div>
