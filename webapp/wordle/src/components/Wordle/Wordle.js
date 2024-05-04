@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Wordle.css';
 import Keyboard from '../Keyboard/Keyboard.js';
 import Cells from '../Cells/Cells.js';
@@ -20,15 +20,7 @@ function Wordle() {
     const [result, setResult] = useState(Array(6).fill().map(() => Array(6).fill([])));
     const [currentCol, setCurrentCol] = useState(0);
 
-    const getNewWord = () => {
-        const word = words[currentIndex];
-        setCurrentIndex(currentIndex + 1);
-        console.log('word: ', word);
-        return word;
-    }
-
     const handleChange = (data) => {
-        // console.log('data in handleChnage: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let userInput = currentInput.split("");
@@ -41,20 +33,19 @@ function Wordle() {
         setUserInput(currentInput.toUpperCase());
     }
 
+    useEffect(() => {
+        let newWord = words[currentIndex];
+        setWord(newWord.toUpperCase());
+    }, [currentIndex]);
+
     const handleWord = (row, col) => {
-        // console.log(`word: ${word} | userInput: ${userInput}`);
-        console.log('result: ', result);
-        console.log(`row: ${row} | col: ${col}`);
         if (word === userInput) {
-            console.log('word matched');
+            setCurrentIndex(prevIndex => prevIndex + 1);
         }
         else {
             console.log('word did not matched');
         }
         let arr = Array(5).fill("");
-        // let matrix = [...result];
-        // matrix[0][1] = "H";
-        console.log(arr);
         for (let i=0; i<5; i++) {
             if (word[i] === userInput[i]) {
                 arr[i] = "green";
@@ -66,13 +57,10 @@ function Wordle() {
                 arr[i] = "gray";
             }       
         }
-        // console.log('matrix: ', matrix);
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
         
         setResult(newRes);
-        // console.log('newRes Val: ', newRes[col][row]);
-        // setResult(matrix);
         setUserInput("");
     }
 
