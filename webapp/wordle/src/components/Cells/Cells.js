@@ -38,8 +38,8 @@ function Cells(props) {
         
     }
 
-    const moveToNextCol = (currRow) => {
-        if (currRow <= 5) {
+    const moveToNextCol = (currCol) => {
+        if (currCol < 5) {
             document.getElementById(`0-${props.col + 1}`).focus();
         }
     }
