@@ -13,6 +13,8 @@ function Wordle() {
         col: 0
     }
 
+    // TODO: Add Keyboard
+
     const [curPos, setCurPos] = useState(pos);
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState(words[0].toUpperCase());
@@ -31,6 +33,12 @@ function Wordle() {
             currentInput += data.value;
         }
         setUserInput(currentInput.toUpperCase());
+    }
+
+    // TODO: reset the board
+    const resetBoard = () => {
+        console.log('resetBoard called');
+
     }
 
     useEffect(() => {
