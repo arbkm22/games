@@ -13,6 +13,9 @@ function Keyboard() {
 
     const handleClick = () => {
         console.log('handleCick clicked');
+        chars.map((item, index) => {
+            console.log('item: ', item);
+        });
     }
 
     // * map => creates a new array by calling function on every element of the original array.
@@ -22,17 +25,13 @@ function Keyboard() {
     return (
         <>
             <div className="keyboard">
-                {list.map((item, index) => {
-                    <div key={index} className="characters">
-                        A{item}
-                    </div>
-                })}
-            </div>
-            <div className="character">
-                A
+                <div className="char" onClick={handleClick}>  
+                    {chars.map((item, index) => {
+                        <div>{item}</div>
+                    })}
+                </div>  
             </div>
         </>
-        
     );
 }
 
