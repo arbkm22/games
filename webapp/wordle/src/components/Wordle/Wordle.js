@@ -38,7 +38,6 @@ function Wordle() {
     // TODO: reset the board
     const resetBoard = () => {
         console.log('resetBoard called');
-
     }
 
     useEffect(() => {
@@ -93,7 +92,7 @@ function Wordle() {
                 ))}
             </div>
             
-            <Keyboard />
+            {/* <Keyboard /> */}
         </>
     )
 }

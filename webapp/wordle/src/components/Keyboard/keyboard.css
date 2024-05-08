@@ -14,3 +14,8 @@
   background-color: #818384;
   font-family: 'Roboto Slab', serif;
 }
+
+.items {
+  padding: 10px;
+  margin: 10px;
+}
