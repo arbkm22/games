@@ -2,8 +2,8 @@ import React from "react";
 import './keyboard.css';
 import Chars from "./Chars";
 
-function Keyboard() {
-    const qwertyLayout = [
+function Keyboard(props) {
+    const qwertyLayout =  [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
         ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
         ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
@@ -33,28 +33,21 @@ function Keyboard() {
         <>
             <div className="keyboard">
                 {(() => {
-                    let element= [];
-                    for (let i=0; i<3; i++) {
-                        let eleSub = [];
-                        if (i = 0) {
-                            for (let j=0; j<firstRow.length; j++) {
-                                eleSub.push(<Chars letter={firstRow[j]} />);
-                            }
+                    let rowKeys = [];
+                    console.log('props: ', props);
+
+                    for (let i=0; i<qwertyLayout[props.layoutRow].length; i++) {
+                        if (props.layoutRow === 0) {
+                            rowKeys.push(<Chars key={1} letter={firstRow[i]} />)
                         }
-                        if (i = 1) {
-                            for (let k=0; k<secondRow.length; k++) {
-                                eleSub.push(<Chars letter={secondRow[k]} />);
-                            }
+                        else if (props.layoutRow === 1) {
+                            rowKeys.push(<Chars key={1} letter={secondRow[i]} />)
                         }
-                        if (i == 2) {
-                            for (let l=0; l<thirdRow.length; l++) {
-                                eleSub.push(<Chars letter={thirdRow[l]} />);
-                            }
+                        else if (props.layoutRow === 2) {
+                            rowKeys.push(<Chars key={1} letter={thirdRow[i]} />)
                         }
-                        element.push(eleSub);
-                        console.log('element: ', element);
                     }
-                    return element;
+                    return rowKeys;
                 })()}
             </div>
         </>

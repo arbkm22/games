@@ -92,7 +92,9 @@ function Wordle() {
                 ))}
             </div>
             
-            {/* <Keyboard /> */}
+            <Keyboard layoutRow={0} />
+            <Keyboard layoutRow={1} />
+            <Keyboard layoutRow={2} />
         </>
     )
 }
