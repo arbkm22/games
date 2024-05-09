@@ -1,9 +1,9 @@
 .wordle {
-  height: 80vh;
   display: flex;
   justify-content: center;
   padding-top: 20px;
   font-size: 4rem;
+  margin-bottom: 20px;
 }
 
 .box {
@@ -18,4 +18,5 @@
 .row {
   display: flex;
   flex-direction: column;
+  /* height: 400px; */
 }
