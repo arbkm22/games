@@ -21,6 +21,7 @@ function Wordle() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [result, setResult] = useState(Array(6).fill().map(() => Array(6).fill([])));
     const [currentCol, setCurrentCol] = useState(0);
+    const [keyMap, setKeyMap] = useState(new Map());
 
     const handleChange = (data) => {
         let currentInput = userInput;
@@ -62,7 +63,14 @@ function Wordle() {
             }
             if (!word.includes(userInput[i])) {
                 arr[i] = "gray";
-            }       
+            }
+            if (!keyMap.has(arr[i])) {
+                const newCopy = new Map(keyMap);
+                console.log('newCopy before: ', newCopy)
+                newCopy.set(userInput[i], arr[i]);
+                setKeyMap(newCopy);
+                console.log('keyMap after: ', newCopy);
+            }
         }
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
