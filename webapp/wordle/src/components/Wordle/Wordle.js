@@ -65,13 +65,12 @@ function Wordle() {
                 arr[i] = "gray";
             }
             if (!keyMap.has(arr[i])) {
-                const newCopy = new Map(keyMap);
-                console.log('newCopy before: ', newCopy)
+                const newCopy = keyMap;
                 newCopy.set(userInput[i], arr[i]);
                 setKeyMap(newCopy);
-                console.log('keyMap after: ', newCopy);
             }
         }
+
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
         
@@ -93,6 +92,7 @@ function Wordle() {
                                     onWord={handleWord} 
                                     color={result[colIndex][rowIndex]}
                                     currentCol={currentCol}
+                                    keyMap={keyMap}
                                 />
                             </div>
                         ))}
@@ -100,9 +100,9 @@ function Wordle() {
                 ))}
             </div>
             
-            <Keyboard layoutRow={0} />
-            <Keyboard layoutRow={1} />
-            <Keyboard layoutRow={2} />
+            <Keyboard layoutRow={0} keyMap={keyMap} />
+            <Keyboard layoutRow={1} keyMap={keyMap} />
+            <Keyboard layoutRow={2} keyMap={keyMap} />
         </>
     )
 }

@@ -17,8 +17,16 @@
   margin-right: 10px;
 }
 
+.gray {
+  background-color: #3A3A3C;
+}
+
 .yellow {
-  background-color: yellow;
+  background-color: #B59F3B;
+}
+
+.green {
+  background-color: #538D4E;
 }
 
 .items {

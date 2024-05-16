@@ -23,15 +23,26 @@ function Keyboard(props) {
             <div className="keyboard">
                 {(() => {
                     let rowKeys = [];
+                    let newMap = props.keyMap;
                     for (let i=0; i<qwertyLayout[props.layoutRow].length; i++) {
+                        let color = "";
                         if (props.layoutRow === 0) {
-                            rowKeys.push(<Chars key={firstRow[i]} letter={firstRow[i]} />);
+                            if (newMap.has(firstRow[i])) {
+                                color = newMap.get(firstRow[i]);
+                            }
+                            rowKeys.push(<Chars key={firstRow[i]} letter={firstRow[i]} color={color} />);
                         }
                         else if (props.layoutRow === 1) {
-                            rowKeys.push(<Chars key={secondRow[i]} letter={secondRow[i]} />);
+                            if (newMap.has(secondRow[i])) {
+                                color = newMap.get(secondRow[i]);
+                            }
+                            rowKeys.push(<Chars key={secondRow[i]} letter={secondRow[i]} color={color} />);
                         }
                         else if (props.layoutRow === 2) {
-                            rowKeys.push(<Chars key={thirdRow[i]} letter={thirdRow[i]} />);
+                            if (newMap.has(thirdRow[i])) {
+                                color = newMap.get(thirdRow[i]);
+                            }
+                            rowKeys.push(<Chars key={thirdRow[i]} letter={thirdRow[i]} color={color} />);
                         }
                     }
                     return rowKeys;
