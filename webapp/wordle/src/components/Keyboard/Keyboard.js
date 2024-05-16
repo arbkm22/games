@@ -9,20 +9,9 @@ function Keyboard(props) {
         ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
     ];
 
-    const chars = ["A", "B", "C"];
-
     const firstRow = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const secondRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     const thirdRow = ["Z", "X", "C", "V", "B", "N", "M"];
-
-    const list = [1, 2, 3]
-
-    const handleClick = () => {
-        console.log('handleCick clicked');
-        chars.map((item, index) => {
-            console.log('item: ', item);
-        });
-    }
 
     // * map => creates a new array by calling function on every 
     // * element of the original array.
@@ -34,17 +23,26 @@ function Keyboard(props) {
             <div className="keyboard">
                 {(() => {
                     let rowKeys = [];
-                    console.log('props: ', props);
-
+                    let newMap = props.keyMap;
                     for (let i=0; i<qwertyLayout[props.layoutRow].length; i++) {
+                        let color = "";
                         if (props.layoutRow === 0) {
-                            rowKeys.push(<Chars key={1} letter={firstRow[i]} />)
+                            if (newMap.has(firstRow[i])) {
+                                color = newMap.get(firstRow[i]);
+                            }
+                            rowKeys.push(<Chars key={firstRow[i]} letter={firstRow[i]} color={color} />);
                         }
                         else if (props.layoutRow === 1) {
-                            rowKeys.push(<Chars key={1} letter={secondRow[i]} />)
+                            if (newMap.has(secondRow[i])) {
+                                color = newMap.get(secondRow[i]);
+                            }
+                            rowKeys.push(<Chars key={secondRow[i]} letter={secondRow[i]} color={color} />);
                         }
                         else if (props.layoutRow === 2) {
-                            rowKeys.push(<Chars key={1} letter={thirdRow[i]} />)
+                            if (newMap.has(thirdRow[i])) {
+                                color = newMap.get(thirdRow[i]);
+                            }
+                            rowKeys.push(<Chars key={thirdRow[i]} letter={thirdRow[i]} color={color} />);
                         }
                     }
                     return rowKeys;
