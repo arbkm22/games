@@ -6,19 +6,25 @@ function Cells(props) {
     // TODO: write comments for me ffs
 
     const [currentCellValue, setCurrentCellValue] = useState("");
-    const [cellColor, setCellColor] = useState("")
+    const [cellColor, setCellColor] = useState("");
     const [whichKey, setWhichKey] = useState("");
     const [currentCellColor, setCurrentCellColor] = useState("");
     const inputRef = useRef(null);
 
     const handleKeyDown = (event) => {
         setWhichKey(event.key);
+        console.log('handleKeyDown: ', event.key);
         if ((currentCellValue !== undefined || currentCellValue !== null) &&
             event.key === "Enter" &&  
             (props.row === 4)
         ) {
             props.onWord(props.row, props.col);
             moveToNextCol(props.col);
+        }
+        if (event.key === "Backspace" && 
+            (currentCellValue !== undefined || currentCellValue !== null)) {
+            console.log('backspace in handleKeyDown');
+            handleChange(event);
         }
     }
     
@@ -33,11 +39,23 @@ function Cells(props) {
     }
 
     const handleChange = (event) => {
+        console.log('Cells | handleChange'); 
+        console.log('evemt.key: ', event.key);
+        // if (event.key === "Backspace") {
+        //     console.log('backspace pressed');
+        //     document.getElementById(`${props.row - 1}-${props.col}`).focus();
+        //     // return;
+        // }                                                                                                                                                                         
         if (currentCellValue.length >= 1 && whichKey !== "Backspace") {
             if (props.row < 4) {
+                console.log('handleChange first if');
                 document.getElementById(`${props.row + 1}-${props.col}`).focus();
             }
             return;
+        }
+
+        if (whichKey === "BackSpace") {
+            console.log('backspace in handleChange');
         }
         
         let data = {
@@ -48,6 +66,7 @@ function Cells(props) {
         };
 
         setCurrentCellValue(event.target.value);
+        // handle backspace
         if (whichKey === "Backspace" && props.row !== 0) {
             document.getElementById(`${props.row - 1}-${props.col}`).focus();
         }
@@ -56,7 +75,6 @@ function Cells(props) {
                 document.getElementById(`${props.row + 1}-${props.col}`).focus();
             }
         }
-
         props.onChange(data);
     }
 

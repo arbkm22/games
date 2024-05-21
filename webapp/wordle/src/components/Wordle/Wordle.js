@@ -13,8 +13,6 @@ function Wordle() {
         col: 0
     }
 
-    // TODO: Add Keyboard
-
     const [curPos, setCurPos] = useState(pos);
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState(words[0].toUpperCase());
@@ -24,8 +22,10 @@ function Wordle() {
     const [keyMap, setKeyMap] = useState(new Map());
 
     const handleChange = (data) => {
+        console.log('Wordle | handleChange: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
+            console.log('handleChange if');
             let userInput = currentInput.split("");
             userInput.pop();
             currentInput = userInput.join("");
@@ -53,6 +53,7 @@ function Wordle() {
         else {
             console.log('word did not matched');
         }
+        
         let arr = Array(5).fill("");
         for (let i=0; i<5; i++) {
             if (word[i] === userInput[i]) {
@@ -92,7 +93,6 @@ function Wordle() {
                                     onWord={handleWord} 
                                     color={result[colIndex][rowIndex]}
                                     currentCol={currentCol}
-                                    keyMap={keyMap}
                                 />
                             </div>
                         ))}
@@ -100,9 +100,9 @@ function Wordle() {
                 ))}
             </div>
             
-            <Keyboard layoutRow={0} keyMap={keyMap} />
-            <Keyboard layoutRow={1} keyMap={keyMap} />
-            <Keyboard layoutRow={2} keyMap={keyMap} />
+            <Keyboard layoutRow={0} keyMap={keyMap} callFunction={handleChange} />
+            <Keyboard layoutRow={1} keyMap={keyMap} callFunction={handleChange} />
+            <Keyboard layoutRow={2} keyMap={keyMap} callFunction={handleChange} />
         </>
     )
 }

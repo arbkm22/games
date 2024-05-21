@@ -3,7 +3,11 @@ import React from "react";
 function Chars(props) {  
 
     const handleClick = () => {
-        console.log('letter: ', props.letter);
+        let letter = props.letter;
+        const data = new Object();
+        data.key = letter;
+        data.value = letter;
+        props.registerKey(data);
     }
 
     return (
