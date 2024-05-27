@@ -25,10 +25,11 @@ function Wordle() {
         console.log('Wordle | handleChange: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
-            console.log('handleChange if');
             let userInput = currentInput.split("");
+            console.log('word before: ', currentInput);
             userInput.pop();
             currentInput = userInput.join("");
+            console.log('word after: ', currentInput);
         }
         else {
             currentInput += data.value;
@@ -65,12 +66,14 @@ function Wordle() {
             if (!word.includes(userInput[i])) {
                 arr[i] = "gray";
             }
+            console.log(`keyMap has:${arr[i]} | ${keyMap.has(arr[i])}`);
             if (!keyMap.has(arr[i])) {
                 const newCopy = keyMap;
                 newCopy.set(userInput[i], arr[i]);
                 setKeyMap(newCopy);
             }
         }
+        console.log('keyMap: ', keyMap);
 
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
