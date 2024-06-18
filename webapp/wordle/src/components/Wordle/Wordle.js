@@ -26,10 +26,8 @@ function Wordle() {
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let userInput = currentInput.split("");
-            console.log('word before: ', currentInput);
             userInput.pop();
             currentInput = userInput.join("");
-            console.log('word after: ', currentInput);
         }
         else {
             currentInput += data.value;
@@ -47,9 +45,17 @@ function Wordle() {
         setWord(newWord.toUpperCase());
     }, [currentIndex]);
 
+    const updateKeyMap = (keyMap, userInput, color) => {
+        const newCopy = keyMap;
+        newCopy.set(userInput, color);
+        setKeyMap(newCopy);
+    }
+
     const handleWord = (row, col) => {
+        setKeyMap(new Map());
         if (word === userInput) {
             setCurrentIndex(prevIndex => prevIndex + 1);
+            console.log('word matched: ', word);
         }
         else {
             console.log('word did not matched');
@@ -66,14 +72,23 @@ function Wordle() {
             if (!word.includes(userInput[i])) {
                 arr[i] = "gray";
             }
-            console.log(`keyMap has:${arr[i]} | ${keyMap.has(arr[i])}`);
-            if (!keyMap.has(arr[i])) {
-                const newCopy = keyMap;
-                newCopy.set(userInput[i], arr[i]);
-                setKeyMap(newCopy);
+            if (keyMap.has(userInput[i])) {
+                if (arr[i] === "gray") {
+                    if (arr[i] === "yellow" || arr[i] === "green") {
+                        updateKeyMap(keyMap, userInput[i], arr[i]);
+                    }
+                }
+                else if (arr[i] === "yellow") {
+                    console.log("yellow");
+                    if (arr[i] === "green") {
+                        updateKeyMap(keyMap, userInput[i], arr[i]);
+                    }
+                }
+                
+            } else if (!keyMap.has(userInput[i])) {
+                updateKeyMap(keyMap, userInput[i], arr[i]);
             }
         }
-        console.log('keyMap: ', keyMap);
 
         let newRes = result.map(row => [...row]);
         newRes[col] = arr;
