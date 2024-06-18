@@ -13,8 +13,6 @@ function Wordle() {
         col: 0
     }
 
-    // TODO: Add Keyboard
-
     const [curPos, setCurPos] = useState(pos);
     const [userInput, setUserInput] = useState("");
     const [word, setWord] = useState(words[0].toUpperCase());
@@ -24,6 +22,7 @@ function Wordle() {
     const [keyMap, setKeyMap] = useState(new Map());
 
     const handleChange = (data) => {
+        console.log('Wordle | handleChange: ', data);
         let currentInput = userInput;
         if (data.key === "Backspace") {
             let userInput = currentInput.split("");
@@ -46,13 +45,22 @@ function Wordle() {
         setWord(newWord.toUpperCase());
     }, [currentIndex]);
 
+    const updateKeyMap = (keyMap, userInput, color) => {
+        const newCopy = keyMap;
+        newCopy.set(userInput, color);
+        setKeyMap(newCopy);
+    }
+
     const handleWord = (row, col) => {
+        setKeyMap(new Map());
         if (word === userInput) {
             setCurrentIndex(prevIndex => prevIndex + 1);
+            console.log('word matched: ', word);
         }
         else {
             console.log('word did not matched');
         }
+        
         let arr = Array(5).fill("");
         for (let i=0; i<5; i++) {
             if (word[i] === userInput[i]) {
@@ -64,10 +72,21 @@ function Wordle() {
             if (!word.includes(userInput[i])) {
                 arr[i] = "gray";
             }
-            if (!keyMap.has(arr[i])) {
-                const newCopy = keyMap;
-                newCopy.set(userInput[i], arr[i]);
-                setKeyMap(newCopy);
+            if (keyMap.has(userInput[i])) {
+                if (arr[i] === "gray") {
+                    if (arr[i] === "yellow" || arr[i] === "green") {
+                        updateKeyMap(keyMap, userInput[i], arr[i]);
+                    }
+                }
+                else if (arr[i] === "yellow") {
+                    console.log("yellow");
+                    if (arr[i] === "green") {
+                        updateKeyMap(keyMap, userInput[i], arr[i]);
+                    }
+                }
+                
+            } else if (!keyMap.has(userInput[i])) {
+                updateKeyMap(keyMap, userInput[i], arr[i]);
             }
         }
 
@@ -92,7 +111,6 @@ function Wordle() {
                                     onWord={handleWord} 
                                     color={result[colIndex][rowIndex]}
                                     currentCol={currentCol}
-                                    keyMap={keyMap}
                                 />
                             </div>
                         ))}
@@ -100,9 +118,9 @@ function Wordle() {
                 ))}
             </div>
             
-            <Keyboard layoutRow={0} keyMap={keyMap} />
-            <Keyboard layoutRow={1} keyMap={keyMap} />
-            <Keyboard layoutRow={2} keyMap={keyMap} />
+            <Keyboard layoutRow={0} keyMap={keyMap} callFunction={handleChange} />
+            <Keyboard layoutRow={1} keyMap={keyMap} callFunction={handleChange} />
+            <Keyboard layoutRow={2} keyMap={keyMap} callFunction={handleChange} />
         </>
     )
 }

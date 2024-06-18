@@ -30,19 +30,40 @@ function Keyboard(props) {
                             if (newMap.has(firstRow[i])) {
                                 color = newMap.get(firstRow[i]);
                             }
-                            rowKeys.push(<Chars key={firstRow[i]} letter={firstRow[i]} color={color} />);
+                            rowKeys.push(
+                                <Chars 
+                                    key={firstRow[i]} 
+                                    letter={firstRow[i]} 
+                                    color={color} 
+                                    registerKey={props.callFunction}
+                                />
+                            );
                         }
                         else if (props.layoutRow === 1) {
                             if (newMap.has(secondRow[i])) {
                                 color = newMap.get(secondRow[i]);
                             }
-                            rowKeys.push(<Chars key={secondRow[i]} letter={secondRow[i]} color={color} />);
+                            rowKeys.push(
+                                <Chars 
+                                    key={secondRow[i]} 
+                                    letter={secondRow[i]} 
+                                    color={color} 
+                                    registerKey={props.callFunction}
+                                />
+                            );
                         }
                         else if (props.layoutRow === 2) {
                             if (newMap.has(thirdRow[i])) {
                                 color = newMap.get(thirdRow[i]);
                             }
-                            rowKeys.push(<Chars key={thirdRow[i]} letter={thirdRow[i]} color={color} />);
+                            rowKeys.push(
+                                <Chars 
+                                    key={thirdRow[i]} 
+                                    letter={thirdRow[i]} 
+                                    color={color} 
+                                    registerKey={props.callFunction}
+                                />
+                            );
                         }
                     }
                     return rowKeys;
